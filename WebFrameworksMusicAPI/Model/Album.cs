@@ -21,5 +21,8 @@ namespace WebFrameworksMusicAPI.Model
         public DateTime ReleaseDate { get; set; }
 
         public Artist? Artist { get; set; }
+
+        public ICollection<Song> songs { get; set; }
+
     }
 }
