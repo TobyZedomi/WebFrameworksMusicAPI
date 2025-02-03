@@ -1,3 +1,9 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
+using System.Security.Cryptography.Xml;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebFrameworksMusicAPI
 {
@@ -14,6 +20,12 @@ namespace WebFrameworksMusicAPI
             //  builder.Services.AddOpenApi();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddDbContext<DbContext>(options =>
+            {
+
+                options.UseSqlServer("Data Source=TOBY;Initial Catalog=musicApi;Integrated Security=True;Trust Server Certificate=True");
+            });
 
             var app = builder.Build();
 
