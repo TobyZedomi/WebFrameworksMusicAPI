@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,7 @@ namespace WebFrameworksMusicAPI.Controllers
 
         // GET: api/Albums
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Album>>> GetAlbum()
         {
             return await _context.Album.ToListAsync();
@@ -30,6 +32,7 @@ namespace WebFrameworksMusicAPI.Controllers
 
         // GET: api/Albums/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Album>> GetAlbum(int id)
         {
             var album = await _context.Album.FindAsync(id);
@@ -45,6 +48,7 @@ namespace WebFrameworksMusicAPI.Controllers
         // PUT: api/Albums/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutAlbum(int id, Album album)
         {
             if (id != album.Id)
@@ -76,6 +80,7 @@ namespace WebFrameworksMusicAPI.Controllers
         // POST: api/Albums
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Album>> PostAlbum(Album album)
         {
             _context.Album.Add(album);
@@ -86,6 +91,7 @@ namespace WebFrameworksMusicAPI.Controllers
 
         // DELETE: api/Albums/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteAlbum(int id)
         {
             var album = await _context.Album.FindAsync(id);
