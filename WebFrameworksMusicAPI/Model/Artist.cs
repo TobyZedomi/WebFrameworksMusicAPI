@@ -15,6 +15,7 @@ namespace WebFrameworksMusicAPI.Model
 
         public DateTime DateOfBirth { get; set; }
 
+        public ICollection<Album> albums { get; set; }
 
     }
 }

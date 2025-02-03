@@ -19,5 +19,7 @@ namespace WebFrameworksMusicAPI.Model
         public int NumberOfFeatures { get; set; }
 
         public DateTime ReleaseDate { get; set; }
+
+        public Artist? Artist { get; set; }
     }
 }
