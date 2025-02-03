@@ -4,6 +4,7 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Security.Cryptography.Xml;
 using Microsoft.EntityFrameworkCore;
+using WebFrameworksMusicAPI.Data;
 
 namespace WebFrameworksMusicAPI
 {
@@ -21,13 +22,23 @@ namespace WebFrameworksMusicAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddDbContext<DbContext>(options =>
+            builder.Services.AddDbContext<MusicContext>(options =>
             {
 
                 options.UseSqlServer("Data Source=TOBY;Initial Catalog=musicApi;Integrated Security=True;Trust Server Certificate=True");
             });
 
+            builder.Services.AddAuthorization();
+
+
+            builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+                .AddEntityFrameworkStores<MusicContext>();
+
             var app = builder.Build();
+
+
+            app.MapIdentityApi<IdentityUser>();
+
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
