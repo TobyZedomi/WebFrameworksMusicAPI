@@ -1,0 +1,6 @@
+@WebFrameworksMusicAPI_HostAddress = http://localhost:5277
+
+GET {{WebFrameworksMusicAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
