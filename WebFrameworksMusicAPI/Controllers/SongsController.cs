@@ -85,7 +85,7 @@ namespace WebFrameworksMusicAPI.Controllers
             _context.Song.Add(song);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetSong", new { id = song.Id }, song);
+            return CreatedAtAction(nameof(Song), new { id = song.Id }, song);
         }
 
         // DELETE: api/Songs/5
