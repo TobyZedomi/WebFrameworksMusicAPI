@@ -28,6 +28,21 @@ namespace WebFrameworksMusicAPI.Controllers
         [Authorize]
         public async Task<ActionResult<IEnumerable<Artist>>> GetArtist()
         {
+            if (_context.Artist == null)
+            {
+                return NotFound();
+            }
+
+            var artist = await _context.Artist.Select(t =>
+            new Artist()
+            {
+                Id = t.Id,
+                ArtistName = t.ArtistName,
+                Genre = t.Genre
+            }
+
+            ).ToListAsync();
+
             return await _context.Artist.ToListAsync();
         }
 
