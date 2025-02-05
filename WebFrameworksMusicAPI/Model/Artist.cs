@@ -17,7 +17,7 @@ namespace WebFrameworksMusicAPI.Model
 
         public ICollection<Album> Albums { get; set; }
 
-        public ICollection<Song> Songs { get; set; }
+       
 
     }
 }

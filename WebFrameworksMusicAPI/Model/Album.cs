@@ -21,7 +21,6 @@ namespace WebFrameworksMusicAPI.Model
         public int ArtistId { get; set; }
         public Artist? Artist { get; set; }
 
-        public ICollection<Song> Songs { get; set; }
 
     }
 }

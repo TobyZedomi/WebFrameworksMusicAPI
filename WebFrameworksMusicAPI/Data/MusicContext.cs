@@ -12,7 +12,6 @@ namespace WebFrameworksMusicAPI.Data
 
         public DbSet<Artist> Artist { get; set; }
 
-        public DbSet<Song> Song { get; set; }
 
 
         public MusicContext(DbContextOptions options) : base(options)
@@ -25,6 +24,13 @@ namespace WebFrameworksMusicAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<Artist>() 
+                .HasMany(a => a.Albums) 
+                .WithOne(ai => ai.Artist)    
+                .HasForeignKey(ai => ai.ArtistId) 
+                .OnDelete(DeleteBehavior.Cascade);
+
 
             modelBuilder.Entity<Artist>()
                .HasData(
@@ -162,97 +168,7 @@ namespace WebFrameworksMusicAPI.Data
             }
             );
 
-            // Song Data
-
-            modelBuilder.Entity<Song>()
-            .HasData(
-            new Song
-            {
-                Id = 1,
-                SongName = "Nightcore",
-                ArtistId = 1,
-                AlbumId = 1,
-                
-            }
-            );
-
-            modelBuilder.Entity<Song>()
-           .HasData(
-           new Song
-           {
-               Id = 2,
-               SongName = "As",
-               ArtistId = 2,
-               AlbumId = 2,
-
-           }
-           );
-
-            modelBuilder.Entity<Song>()
-           .HasData(
-           new Song
-           {
-               Id = 3,
-               SongName = "Moments Notice",
-               ArtistId = 3,
-               AlbumId = 3,
-
-           }
-           );
-
-
-            modelBuilder.Entity<Song>()
-           .HasData(
-           new Song
-           {
-               Id = 4,
-               SongName = "Let Down",
-               ArtistId = 4,
-               AlbumId = 4,
-
-           }
-           );
-
-
-            modelBuilder.Entity<Song>()
-           .HasData(
-           new Song
-           {
-               Id = 5,
-               SongName = "Airbag",
-               ArtistId = 4,
-               AlbumId = 4,
-
-           }
-           );
-
-
-            modelBuilder.Entity<Song>()
-           .HasData(
-           new Song
-           {
-               Id = 6,
-               SongName = "Jigsaws",
-               ArtistId = 4,
-               AlbumId = 5,
-
-           }
-           );
-
-
-
-            modelBuilder.Entity<Song>()
-           .HasData(
-           new Song
-           {
-               Id = 7,
-               SongName = "Represent",
-               ArtistId = 5,
-               AlbumId = 6,
-
-           }
-           );
-
+          
 
 
 
