@@ -42,8 +42,7 @@ namespace WebFrameworksMusicAPI.Controllers
             }
 
             ).ToListAsync();
-
-            return await _context.Artist.ToListAsync();
+            return Ok(artist);
         }
 
         // GET: api/Artists/5
