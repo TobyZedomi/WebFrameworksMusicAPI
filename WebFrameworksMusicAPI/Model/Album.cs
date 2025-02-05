@@ -12,17 +12,16 @@ namespace WebFrameworksMusicAPI.Model
         [MaxLength(100)]
         public string AlbumName { get; set; }
 
-        [Range(0,50)]
         public int NumberOfSongs { get; set; }
 
-        [Range(0,50)]
         public int NumberOfFeatures { get; set; }
 
         public DateTime ReleaseDate { get; set; }
 
+        public int ArtistId { get; set; }
         public Artist? Artist { get; set; }
 
-        public ICollection<Song> songs { get; set; }
+        public ICollection<Song> Songs { get; set; }
 
     }
 }
