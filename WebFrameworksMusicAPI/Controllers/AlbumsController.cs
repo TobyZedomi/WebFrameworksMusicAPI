@@ -28,7 +28,24 @@ namespace WebFrameworksMusicAPI.Controllers
         [Authorize]
         public async Task<ActionResult<IEnumerable<Album>>> GetAlbum()
         {
-            return await _context.Album.ToListAsync();
+
+            if(_context.Album == null)
+            {
+                return NotFound();
+            }
+
+            var album = await _context.Album.Select(t =>
+            new AlbumGetDto()
+            {
+                Id = t.Id,
+                AlbumName = t.AlbumName,
+                NumberOfSongs = t.NumberOfSongs,
+                ReleaseDate = t.ReleaseDate,
+                ArtistId = t.ArtistId
+            }
+
+            ).ToListAsync();
+            return Ok(album);
         }
 
         // GET: api/Albums/5
