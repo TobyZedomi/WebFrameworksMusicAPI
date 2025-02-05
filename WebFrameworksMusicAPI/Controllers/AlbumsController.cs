@@ -67,8 +67,20 @@ namespace WebFrameworksMusicAPI.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> PutAlbum(int id, Album album)
+        public async Task<IActionResult> PutAlbum(int id, AlbumPutDto albumDto)
         {
+
+            Album album = new()
+            {
+                Id = albumDto.Id,
+                AlbumName = albumDto.AlbumName,
+                NumberOfSongs = albumDto.NumberOfSongs,
+                NumberOfFeatures = albumDto.NumberOfFeatures,
+                ReleaseDate = albumDto.ReleaseDate,
+                ArtistId = albumDto.ArtistId,
+            };
+
+
             if (id != album.Id)
             {
                 return BadRequest();
