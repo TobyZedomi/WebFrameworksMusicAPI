@@ -62,7 +62,7 @@ namespace WebFrameworksMusicAPI
             builder.Services.AddDbContext<MusicContext>(options =>
             {
 
-                options.UseSqlServer("Data Source=TOBY;Initial Catalog=musicApi;Integrated Security=True;Trust Server Certificate=True");
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
 
             builder.Services.AddAuthorization();

@@ -12,7 +12,7 @@ using WebFrameworksMusicAPI.Data;
 namespace WebFrameworksMusicAPI.Migrations
 {
     [DbContext(typeof(MusicContext))]
-    [Migration("20250203220358_InitialCreate")]
+    [Migration("20250205013302_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
