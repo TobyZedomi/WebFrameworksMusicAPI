@@ -34,7 +34,7 @@ namespace WebFrameworksMusicAPI.Controllers
             }
 
             var artist = await _context.Artist.Select(t =>
-            new Artist()
+            new ArtistGetDto()
             {
                 Id = t.Id,
                 ArtistName = t.ArtistName,
