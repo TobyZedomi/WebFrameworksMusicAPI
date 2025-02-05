@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebFrameworksMusicAPI.Data;
+using WebFrameworksMusicAPI.DTOs;
 using WebFrameworksMusicAPI.Model;
 
 namespace WebFrameworksMusicAPI.Controllers
@@ -76,8 +77,18 @@ namespace WebFrameworksMusicAPI.Controllers
         // POST: api/Albums
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Album>> PostAlbum(Album album)
+        public async Task<ActionResult<AlbumPostDto>> PostAlbum(AlbumPostDto albumDto)
         {
+            Album album = new()
+            {
+                Id = albumDto.Id,
+                AlbumName = albumDto.AlbumName,
+                NumberOfSongs = albumDto.NumberOfSongs,
+                NumberOfFeatures = albumDto.NumberOfFeatures,
+                ReleaseDate = albumDto.ReleaseDate,
+                ArtistId = albumDto.ArtistId,
+            };
+
             _context.Album.Add(album);
             await _context.SaveChangesAsync();
 

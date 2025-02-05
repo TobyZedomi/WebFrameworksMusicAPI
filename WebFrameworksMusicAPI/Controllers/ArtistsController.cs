@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebFrameworksMusicAPI.Data;
+using WebFrameworksMusicAPI.DTOs;
 using WebFrameworksMusicAPI.Model;
 
 namespace WebFrameworksMusicAPI.Controllers
@@ -76,8 +77,17 @@ namespace WebFrameworksMusicAPI.Controllers
         // POST: api/Artists
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Artist>> PostArtist(Artist artist)
+        public async Task<ActionResult<ArtistPostDto>> PostArtist(ArtistPostDto artistDto)
         {
+            Artist artist = new()
+            {
+                Id = artistDto.Id,
+                ArtistName = artistDto.ArtistName,
+                Genre = artistDto.Genre,
+                DateOfBirth = artistDto.DateOfBirth,
+            };
+
+
             _context.Artist.Add(artist);
             await _context.SaveChangesAsync();
 
