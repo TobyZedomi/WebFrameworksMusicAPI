@@ -64,8 +64,18 @@ namespace WebFrameworksMusicAPI.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> PutArtist(int id, Artist artist)
+        public async Task<IActionResult> PutArtist(int id, ArtistPutDto artistDto)
         {
+
+            Artist artist = new()
+            {
+                Id = artistDto.Id,
+                ArtistName = artistDto.ArtistName,
+                Genre = artistDto.Genre,
+                DateOfBirth = artistDto.DateOfBirth,
+            };
+
+
             if (id != artist.Id)
             {
                 return BadRequest();
