@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebFrameworksMusicAPI.Data;
 using WebFrameworksMusicAPI.DTOs;
+using WebFrameworksMusicAPI.Helpers;
 using WebFrameworksMusicAPI.Model;
 
 namespace WebFrameworksMusicAPI.Controllers
@@ -26,14 +27,56 @@ namespace WebFrameworksMusicAPI.Controllers
         // GET: api/Artists
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<Artist>>> GetArtist()
+        public async Task<ActionResult<IEnumerable<Artist>>> GetArtist([FromQuery] QueryObjectArtist query)
         {
             if (_context.Artist == null)
             {
                 return NotFound();
             }
 
-            var artist = await _context.Artist.Select(t =>
+            var artists = _context.Artist.AsQueryable();
+
+            // getting artist by artist name entered
+
+            if (!string.IsNullOrWhiteSpace(query.ArtistName))
+            {
+                artists = artists.Where(a => a.ArtistName.Contains(query.ArtistName));
+            }
+
+            // getting artist by genre 
+
+
+            if (!string.IsNullOrWhiteSpace(query.Genre))
+            {
+                artists = artists.Where(a => a.Genre.Contains(query.Genre));
+            }
+
+            // Sorting artist by artistname, genre or artistId. Can be ascending or descending order
+
+            if (!string.IsNullOrWhiteSpace(query.SortBy))
+            {
+                if(query.SortBy.Equals("ArtistName", StringComparison.OrdinalIgnoreCase))
+                {
+                    artists = query.IsDescending ? artists.OrderByDescending(a => a.ArtistName) : artists.OrderBy(a => a.ArtistName);
+                }
+
+                if (query.SortBy.Equals("Genre", StringComparison.OrdinalIgnoreCase))
+                {
+                    artists = query.IsDescending ? artists.OrderByDescending(a => a.Genre) : artists.OrderBy(a => a.Genre);
+                }
+
+                if (query.SortBy.Equals("ArtistId", StringComparison.OrdinalIgnoreCase))
+                {
+                    artists = query.IsDescending ? artists.OrderByDescending(a => a.Id) : artists.OrderBy(a => a.Id);
+                }
+
+
+
+            }
+
+            // using DTO to filter information given to the user
+
+            var artistList = await artists.Select(t =>
             new ArtistGetDto()
             {
                 Id = t.Id,
@@ -42,7 +85,7 @@ namespace WebFrameworksMusicAPI.Controllers
             }
 
             ).ToListAsync();
-            return Ok(artist);
+            return Ok(artistList);
         }
 
         // GET: api/Artists/5
