@@ -37,10 +37,14 @@ namespace WebFrameworksMusicAPI.Controllers
 
             var albums = _context.Album.AsQueryable();
 
+            // get album by album name entered
+
             if (!string.IsNullOrWhiteSpace(query.AlbumName))
             {
                 albums = albums.Where(a => a.AlbumName.Contains(query.AlbumName));
             }
+
+            // sort album by albumname, albumId, artistId, numberofsongs or releaseDate. Can be ascending or descending order
 
             if (!string.IsNullOrWhiteSpace(query.SortBy))
             {
@@ -75,6 +79,8 @@ namespace WebFrameworksMusicAPI.Controllers
 
 
             }
+
+            // using DTO to filter information given to the user
 
             var albumList = await albums.Select(t =>
             new AlbumGetDto()
