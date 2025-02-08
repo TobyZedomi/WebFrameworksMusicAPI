@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebFrameworksMusicAPI.Data;
 using WebFrameworksMusicAPI.DTOs;
+using WebFrameworksMusicAPI.Helpers;
 using WebFrameworksMusicAPI.Model;
 
 namespace WebFrameworksMusicAPI.Controllers
@@ -26,7 +27,7 @@ namespace WebFrameworksMusicAPI.Controllers
         // GET: api/Albums
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<Album>>> GetAlbum()
+        public async Task<ActionResult<IEnumerable<Album>>> GetAlbum([FromQuery] QueryObjectAlbum query)
         {
 
             if(_context.Album == null)
@@ -34,7 +35,48 @@ namespace WebFrameworksMusicAPI.Controllers
                 return NotFound();
             }
 
-            var album = await _context.Album.Select(t =>
+            var albums = _context.Album.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(query.AlbumName))
+            {
+                albums = albums.Where(a => a.AlbumName.Contains(query.AlbumName));
+            }
+
+            if (!string.IsNullOrWhiteSpace(query.SortBy))
+            {
+
+                if(query.SortBy.Equals("AlbumName", StringComparison.OrdinalIgnoreCase))
+                {
+                    albums  = query.IsDescending ? albums.OrderByDescending(a => a.AlbumName) : albums.OrderBy(a => a.AlbumName);
+                }
+
+
+                if (query.SortBy.Equals("AlbumId", StringComparison.OrdinalIgnoreCase))
+                {
+                    albums = query.IsDescending ? albums.OrderByDescending(a => a.Id) : albums.OrderBy(a => a.Id);
+                }
+
+                if (query.SortBy.Equals("ArtistId", StringComparison.OrdinalIgnoreCase))
+                {
+                    albums = query.IsDescending ? albums.OrderByDescending(a => a.ArtistId) : albums.OrderBy(a => a.ArtistId);
+                }
+
+                if (query.SortBy.Equals("NumberOfSongs", StringComparison.OrdinalIgnoreCase))
+                {
+                    albums = query.IsDescending ? albums.OrderByDescending(a => a.NumberOfSongs) : albums.OrderBy(a => a.NumberOfSongs);
+
+                }
+
+                if (query.SortBy.Equals("ReleaseDate", StringComparison.OrdinalIgnoreCase))
+                {
+                    albums = query.IsDescending ? albums.OrderByDescending(a => a.ReleaseDate) : albums.OrderBy(a => a.ReleaseDate);
+
+                }
+
+
+            }
+
+            var albumList = await albums.Select(t =>
             new AlbumGetDto()
             {
                 Id = t.Id,
@@ -45,7 +87,7 @@ namespace WebFrameworksMusicAPI.Controllers
             }
 
             ).ToListAsync();
-            return Ok(album);
+            return Ok(albumList);
         }
 
         // GET: api/Albums/5
