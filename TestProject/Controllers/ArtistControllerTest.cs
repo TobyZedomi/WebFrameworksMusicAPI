@@ -142,8 +142,73 @@ namespace TestProject.Controllers
         }
 
 
+        // test for put/update 
 
 
+        [Fact]
+
+        public async Task UpdateArtist_WhereUpdateIsASuccess()
+        {
+            // creating the updated artist 
+
+            var artist = new Artist { Id = 3, ArtistName = "Miles Davis", Genre = "Jazz", DateOfBirth = new DateTime(1963 - 09 - 23) };
+            var content = new StringContent(JsonConvert.SerializeObject(artist), Encoding.UTF8, "application/json");
+
+            // calling the put request in the artist api 
+
+            var response = await _client.PutAsync($"/api/Artists/{artist.Id}", content);
+
+
+            // making sure the response was a success
+
+            response.EnsureSuccessStatusCode();
+
+            // making sure the no content response is equal tot he reponse from the put request
+
+            Assert.Equal(System.Net.HttpStatusCode.NoContent, response.StatusCode);
+
+
+            // get artist by id to see if they match
+
+            var response2 = await _client.GetAsync($"/api/Artists/{artist.Id}");
+            var responseString = await response2.Content.ReadAsStringAsync();
+            var artistConfirm = JsonConvert.DeserializeObject<Artist>(responseString);
+
+
+            // checking if updated artist and hard coded artist match each other
+
+            Assert.Equal(artist.Id, artistConfirm.Id);
+            Assert.Equal(artist.ArtistName, artistConfirm.ArtistName);
+            Assert.Equal(artist.Genre, artistConfirm.Genre);
+            Assert.Equal(artist.DateOfBirth, artistConfirm.DateOfBirth);
+
+        }
+
+
+        // test for put/update where artistId doesnt exist 
+
+
+        [Fact]
+
+        public async Task UpdateArtist_WhereArtistIdDoesntExist()
+        {
+            // creating the updated artist with id that doesnt exist
+
+            var artist = new Artist { Id = 3433, ArtistName = "Miles Davis", Genre = "Jazz", DateOfBirth = new DateTime(1963 - 09 - 23) };
+            var content = new StringContent(JsonConvert.SerializeObject(artist), Encoding.UTF8, "application/json");
+
+            // calling the put request in the artist api 
+
+            var response = await _client.PutAsync($"/api/Artists/{artist.Id}", content);
+
+            // making sure the not found response is equal to the reponse from the put request
+
+            Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
+           
+        }
+
+
+        
 
 
     }
