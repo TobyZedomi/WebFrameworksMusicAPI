@@ -153,7 +153,7 @@ namespace WebFrameworksMusicAPI.Controllers
         [Authorize]
         public async Task<ActionResult<ArtistPostDto>> PostArtist(ArtistPostDto artistDto)
         {
-            // using ArtistPostDto to filter data
+            // using ArtistPostDto class to filter data
 
             Artist artist = new()
             {
