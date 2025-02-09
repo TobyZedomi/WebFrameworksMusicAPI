@@ -93,7 +93,15 @@ namespace WebFrameworksMusicAPI.Controllers
         [Authorize]
         public async Task<ActionResult<Artist>> GetArtist(int id)
         {
-            var artist = await _context.Artist.FindAsync(id);
+            var artist = await _context.Artist.Select (t =>
+            new ArtistGetDto
+            {
+                Id = t.Id,
+                ArtistName = t.ArtistName,
+                Genre = t.Genre
+            }
+            
+            ).FindAsync(id);
 
             if (artist == null)
             {
