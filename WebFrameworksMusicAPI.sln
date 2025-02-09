@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebFrameworksMusicAPI", "WebFrameworksMusicAPI\WebFrameworksMusicAPI.csproj", "{2CE7531A-4D79-4684-950F-4FCD748A734B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{115E2F07-7C9E-4514-A7C1-077E26432B24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{2CE7531A-4D79-4684-950F-4FCD748A734B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CE7531A-4D79-4684-950F-4FCD748A734B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CE7531A-4D79-4684-950F-4FCD748A734B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{115E2F07-7C9E-4514-A7C1-077E26432B24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{115E2F07-7C9E-4514-A7C1-077E26432B24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{115E2F07-7C9E-4514-A7C1-077E26432B24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{115E2F07-7C9E-4514-A7C1-077E26432B24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
