@@ -21,6 +21,86 @@ namespace TestProject.Controllers
 
         }
 
+        // get all artist
+
+        [Fact]
+        public async Task GetAllArtist()
+        {
+
+
+            var response = await _client.GetAsync("/api/Artists");
+
+            // making sure the response returned was a  success
+
+            Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+        }
+
+
+        // get all artist by artistname
+
+        [Fact]
+
+        public async Task GetAllArtistByArtistName()
+        {
+
+            var artistName = "Stevie Wonder";
+
+            var response = await _client.GetAsync($"/api/Artists?ArtistName={artistName}");
+
+            // making sure the response returned was a  success
+
+            Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+        }
+
+        // getAllArtistByGenre
+
+        [Fact]
+
+        public async Task GetAllArtistByGenre()
+        {
+
+            var genreName = "HipHop";
+
+            var response = await _client.GetAsync($"/api/Artists?Genre={genreName}");
+
+            // making sure the response returned was a  success
+
+            Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+        }
+
+        // sort Artist By DescOrder With ArtistName
+
+        [Fact]
+
+        public async Task SortArtistByArtistNameDescOrder()
+        {
+
+            var sortBy = "ArtistName";
+
+            var response = await _client.GetAsync($"/api/Artists?SortBy={sortBy}?IsDescending=True");
+
+            // making sure the response returned was a  success
+
+            Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+        }
+
+        //sort Artist by genre asc order
+
+        [Fact]
+
+        public async Task SortArtistByGenreAscOrder()
+        {
+
+            var sortBy = "Genre";
+
+            var response = await _client.GetAsync($"/api/Artists?SortBy={sortBy}?IsDescending=False");
+
+            // making sure the response returned was a  success
+
+            Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+        }
+
+
 
         // test for artist by Id where Id exist
 
