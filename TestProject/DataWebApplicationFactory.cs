@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestProject.Controllers;
 using WebFrameworksMusicAPI.Data;
 using WebFrameworksMusicAPI.Model;
 
@@ -32,6 +34,10 @@ namespace TestProject
                 {
                     options.UseSqlServer(GetConnectionString());
                 });
+
+                services.AddAuthentication("TestScheme")
+                .AddScheme<AuthenticationSchemeOptions, TestAuthHandler>(
+                    "TestScheme", options => { });
 
                 var sp = services.BuildServiceProvider();
                 using var scope = sp.CreateScope();
