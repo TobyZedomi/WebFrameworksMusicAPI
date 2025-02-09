@@ -27,6 +27,7 @@ namespace TestProject.Controllers
         public async Task GetAllArtist()
         {
 
+            // get request to get all artist
 
             var response = await _client.GetAsync("/api/Artists");
 
@@ -45,6 +46,8 @@ namespace TestProject.Controllers
 
             var artistName = "Stevie Wonder";
 
+            // get request to get all artist by artist name 
+
             var response = await _client.GetAsync($"/api/Artists?ArtistName={artistName}");
 
             // making sure the response returned was a  success
@@ -60,6 +63,8 @@ namespace TestProject.Controllers
         {
 
             var genreName = "HipHop";
+
+            // get request to get all artist by genre entered
 
             var response = await _client.GetAsync($"/api/Artists?Genre={genreName}");
 
@@ -77,6 +82,8 @@ namespace TestProject.Controllers
 
             var sortBy = "ArtistName";
 
+            // get request to sort artist in descending order 
+
             var response = await _client.GetAsync($"/api/Artists?SortBy={sortBy}?IsDescending=True");
 
             // making sure the response returned was a  success
@@ -92,6 +99,8 @@ namespace TestProject.Controllers
         {
 
             var sortBy = "Genre";
+
+            // get request to get all artist by genre sorted in asc order
 
             var response = await _client.GetAsync($"/api/Artists?SortBy={sortBy}?IsDescending=False");
 

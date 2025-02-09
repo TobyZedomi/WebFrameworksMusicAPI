@@ -20,6 +20,80 @@ namespace TestProject.Controllers
 
         }
 
+        // get all albums
+
+        [Fact]
+        public async Task GetAllAlbums()
+        {
+
+            // get request to get all albums
+
+            var response = await _client.GetAsync("/api/Albums");
+
+            // making sure the response returned was a  success
+
+            Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+        }
+
+
+
+        // get all albums by albumname
+
+        [Fact]
+
+        public async Task GetAllAlbums_ByAlbumName()
+        {
+
+            var albumName = "Songs In The Key Of Life";
+
+            // get request to get all albums by album name 
+
+            var response = await _client.GetAsync($"/api/Albums?AlbumName={albumName}");
+
+            // making sure the response returned was a  success
+
+            Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+        }
+
+        // sort albums by albumName in desc order 
+
+
+        [Fact]
+
+        public async Task SortAlbums_ByAlbumNameInDescOrder()
+        {
+
+            var sortBy = "AlbumName";
+
+            // get request to sort all albums by album name in desc order
+
+            var response = await _client.GetAsync($"/api/Albums?SortBy={sortBy}?IsDescending=True");
+
+            // making sure the response returned was a  success
+
+            Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+        }
+
+
+        // sort albums by numberOfSongs in asc order 
+
+
+        [Fact]
+
+        public async Task SortAlbums_ByNumberOfSongsInAscOrder()
+        {
+
+            var sortBy = "NumberOfSongs";
+
+            // get request to sort all albums by number of songs in ASC order
+
+            var response = await _client.GetAsync($"/api/Albums?SortBy={sortBy}?IsDescending=False");
+
+            // making sure the response returned was a  success
+
+            Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+        }
+
 
         // test for get album by id 
 
