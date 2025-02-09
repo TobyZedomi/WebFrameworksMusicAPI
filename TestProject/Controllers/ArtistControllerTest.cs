@@ -218,9 +218,13 @@ namespace TestProject.Controllers
 
             var response = await _client.DeleteAsync($"/api/Artists/{artistId}");
 
-            // making sure the no content response is equal to the reponse from the delete request
+            // using get request to hceck if artist id still exist 
 
-            Assert.Equal(System.Net.HttpStatusCode.NoContent, response.StatusCode);
+            var response2 = await _client.GetAsync($"/api/Artists/{artistId}");
+
+            //making sure it returns not found along with the get request
+
+            Assert.Equal(System.Net.HttpStatusCode.NotFound, response2.StatusCode);
 
         }
 
