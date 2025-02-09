@@ -161,15 +161,96 @@ namespace TestProject.Controllers
 
             var response = await _client.PostAsync("/api/Albums", content);
 
-            // making sure to return an InternalServerError as artistid doesnt exist
+            // making sure to return an BadRequest as artistid doesnt exist
 
             Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
 
 
         }
 
+        // test put/update where its a success
 
-        
+        [Fact]
+        public async Task UpdateAlbum_WhereUpdateIsASuccess()
+        {
+            // creating the updated album
+
+            var album = new Album { Id = 3, AlbumName = "testData", NumberOfSongs = 12, ReleaseDate = new DateTime(1975 - 09 - 18), ArtistId = 3 };
+            var content = new StringContent(JsonConvert.SerializeObject(album), Encoding.UTF8, "application/json");
+
+            // calling the put request in the album api 
+
+            var response = await _client.PutAsync($"/api/Albums/{album.Id}", content);
+
+
+            // making sure the response was a success
+
+            response.EnsureSuccessStatusCode();
+
+            // making sure the no content response is equal tot he reponse from the put request
+
+            Assert.Equal(System.Net.HttpStatusCode.NoContent, response.StatusCode);
+
+
+            // get album by id to see if they match
+
+            var response2 = await _client.GetAsync($"/api/Albums/{album.Id}");
+            var responseString = await response2.Content.ReadAsStringAsync();
+            var albumConfirm = JsonConvert.DeserializeObject<Album>(responseString);
+
+
+            // checking if updated album and hard coded album match each other
+
+            Assert.Equal(album.Id, albumConfirm.Id);
+            Assert.Equal(album.AlbumName, albumConfirm.AlbumName);
+            Assert.Equal(album.NumberOfSongs, albumConfirm.NumberOfSongs);
+            Assert.Equal(album.ReleaseDate, albumConfirm.ReleaseDate);
+            Assert.Equal(album.ArtistId, albumConfirm.ArtistId);
+
+        }
+
+
+        // test put.update if albumId doesnt exist 
+
+
+        [Fact]
+        public async Task UpdateAlbum_WhereAlbumIdDoesntExist()
+        {
+            // creating the updated album
+
+            var album = new Album { Id = 32343, AlbumName = "testData123", NumberOfSongs = 12, ReleaseDate = new DateTime(1975 - 09 - 18), ArtistId = 3 };
+            var content = new StringContent(JsonConvert.SerializeObject(album), Encoding.UTF8, "application/json");
+
+            // calling the put request in the album api 
+
+            var response = await _client.PutAsync($"/api/Albums/{album.Id}", content);
+
+            // making sure the not found response is equal to the reponse from the put request
+
+            Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
+
+        }
+
+
+        [Fact]
+        public async Task UpdateAlbum_WhereArtistIdDoesntExist()
+        {
+            // creating the updated album
+
+            var album = new Album { Id = 3, AlbumName = "testData123", NumberOfSongs = 12, ReleaseDate = new DateTime(1975 - 09 - 18), ArtistId = 34254 };
+            var content = new StringContent(JsonConvert.SerializeObject(album), Encoding.UTF8, "application/json");
+
+            // calling the put request in the album api 
+
+            var response = await _client.PutAsync($"/api/Albums/{album.Id}", content);
+
+            // making sure to return an InternalServerError as artistid doesnt exist
+
+            Assert.Equal(System.Net.HttpStatusCode.InternalServerError, response.StatusCode);
+        }
+
+
+
 
     }
 }
