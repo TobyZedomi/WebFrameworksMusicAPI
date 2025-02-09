@@ -207,8 +207,41 @@ namespace TestProject.Controllers
            
         }
 
+        // test for delete by id 
 
-        
+        [Fact]
+        public async Task DeleteArtist_WhereArtistIsDeleted()
+        {
+            var artistId = 5;
+
+            // calling the delete request
+
+            var response = await _client.DeleteAsync($"/api/Artists/{artistId}");
+
+            // making sure the no content response is equal to the reponse from the delete request
+
+            Assert.Equal(System.Net.HttpStatusCode.NoContent, response.StatusCode);
+
+        }
+
+
+        // test delete where artist id doesnt exist 
+
+        [Fact]
+
+        public async Task DeleteArtist_WhereArtistIdDoesntExist()
+        {
+            var artistId = 325;
+
+            // calling the delete request
+
+            var response = await _client.DeleteAsync($"/api/Artists/{artistId}");
+
+            // making sur ethe no content response is equal to the reponse from the delete request
+
+            Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
+
+        }
 
 
     }
