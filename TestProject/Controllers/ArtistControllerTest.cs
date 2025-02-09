@@ -85,8 +85,12 @@ namespace TestProject.Controllers
             var responseString = await response.Content.ReadAsStringAsync();
             var artistConfirm = JsonConvert.DeserializeObject<Artist>(responseString);
 
+            // making sure the post request returns a created 
+
+            Assert.Equal(System.Net.HttpStatusCode.Created, response.StatusCode);
+
             // checking both artist expected result and artist from post is the same 
-            
+
             Assert.Equal(artist.ArtistName, artistConfirm.ArtistName);
             Assert.Equal(artist.Genre, artistConfirm.Genre);
             Assert.Equal(artist.DateOfBirth, artistConfirm.DateOfBirth);    
