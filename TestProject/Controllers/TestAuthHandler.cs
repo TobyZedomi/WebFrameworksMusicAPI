@@ -17,6 +17,8 @@ namespace TestProject.Controllers
         {
         }
 
+
+        // overriding authenication for controller request
         protected override Task<AuthenticateResult> HandleAuthenticateAsync()
         {
             var identity = new ClaimsIdentity(Array.Empty<Claim>(), "Test");

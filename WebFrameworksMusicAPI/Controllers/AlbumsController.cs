@@ -80,7 +80,7 @@ namespace WebFrameworksMusicAPI.Controllers
 
             }
 
-            // using DTO to filter information given to the user
+            // using AlbumGetDTO to filter information given to the user
 
             var albumList = await albums.Select(t =>
             new AlbumGetDto()
@@ -117,6 +117,7 @@ namespace WebFrameworksMusicAPI.Controllers
         [Authorize]
         public async Task<IActionResult> PutAlbum(int id, AlbumPutDto albumDto)
         {
+            // using albumPutDto class to filter data
 
             Album album = new()
             {
@@ -161,6 +162,7 @@ namespace WebFrameworksMusicAPI.Controllers
         [Authorize]
         public async Task<ActionResult<AlbumPostDto>> PostAlbum(AlbumPostDto albumDto)
         {
+            // using albumPostDto class to filter data
 
             Album album = new()
             {

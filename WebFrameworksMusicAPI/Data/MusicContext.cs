@@ -25,6 +25,8 @@ namespace WebFrameworksMusicAPI.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
+            // Artist data
+
             modelBuilder.Entity<Artist>() 
                 .HasMany(a => a.Albums) 
                 .WithOne(ai => ai.Artist)    
