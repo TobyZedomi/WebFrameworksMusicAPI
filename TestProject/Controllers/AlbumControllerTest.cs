@@ -250,7 +250,46 @@ namespace TestProject.Controllers
         }
 
 
+        // test for delete by id 
 
+        [Fact]
+        public async Task DeleteAlbum_WhereAlbumIsDeleted()
+        {
+            var albumId = 5;
+
+            // calling the delete request
+
+            var response = await _client.DeleteAsync($"/api/Albums/{albumId}");
+
+            // using get request to check if album id still exist 
+
+            var response2 = await _client.GetAsync($"/api/Albums/{albumId}");
+
+            //making sure it returns not found along with the get request
+
+            Assert.Equal(System.Net.HttpStatusCode.NotFound, response2.StatusCode);
+
+        }
+
+
+        // test for delete request but id doesnt exist 
+
+
+        [Fact]
+        public async Task DeleteAlbum_WhereAlbumIdDoesntExist()
+        {
+            var albumId = 52332;
+
+            // calling the delete request
+
+            var response = await _client.DeleteAsync($"/api/Albums/{albumId}");
+
+            // making sure the no content response is equal to the reponse from the delete request
+
+            Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
+
+
+        }
 
     }
 }

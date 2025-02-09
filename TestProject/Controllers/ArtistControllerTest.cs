@@ -245,7 +245,7 @@ namespace TestProject.Controllers
 
             var response = await _client.DeleteAsync($"/api/Artists/{artistId}");
 
-            // making sur ethe no content response is equal to the reponse from the delete request
+            // making sure the no content response is equal to the reponse from the delete request
 
             Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
 
