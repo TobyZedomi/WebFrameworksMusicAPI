@@ -89,6 +89,18 @@ namespace TestProject
 
                 db.SaveChanges();
             }
+
+            if (!db.Album.Any())
+            {
+                db.Album.AddRange(
+
+                    new Album {Id = 1, AlbumName = "A Great Chaos", NumberOfSongs = 19, NumberOfFeatures = 5, ReleaseDate = new DateTime(2023 - 09 - 18)},
+                    new Album { Id = 2, AlbumName = "A Great Chaos1", NumberOfSongs = 14, NumberOfFeatures = 2, ReleaseDate = new DateTime(2021 - 09 - 18) },
+                    new Album { Id = 3, AlbumName = "A Great Chaos2", NumberOfSongs = 15, NumberOfFeatures = 1, ReleaseDate = new DateTime(2022 - 09 - 18) }
+                    );
+
+                db.SaveChanges();
+            }
         }
 
 
